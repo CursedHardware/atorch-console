@@ -1,4 +1,4 @@
-export class DCReport {
+export class USBReport {
   public readonly voltage: number;
   public readonly amp: number;
   public readonly watt: number;
@@ -37,6 +37,6 @@ export type ReportType = ReturnType<typeof makeReport>;
 
 export function makeReport(block: Buffer) {
   if (block[0x03] === 0x03) {
-    return new DCReport(block);
+    return new USBReport(block);
   }
 }
