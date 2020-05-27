@@ -43,19 +43,19 @@ export const AtorchConsole: React.FC = () => {
     }
   };
 
-  const data: Record<string, string | undefined> = {
-    Voltage: report?.voltage.toFixed(2),
-    Amp: report?.amp.toFixed(2),
-    Watt: report?.watt.toFixed(4),
-    "mA·h": report?.mah.toString(),
-    "W·h": report?.wh.toFixed(2),
-    "D+": report?.dataP.toFixed(2),
-    "D-": report?.dataN.toFixed(2),
+  const data: Record<string, string | number | undefined> = {
+    Voltage: report?.voltage,
+    Amp: report?.amp,
+    Watt: report?.watt,
+    "mA·h": report?.mah,
+    "W·h": report?.wh,
+    "D+": report?.dataP,
+    "D-": report?.dataN,
     Duration: report?.duration,
   };
 
   return (
-    <Container>
+    <Container className={locals.container}>
       <Row className="ml-2 justify-content-center">
         <Button outline onClick={handleConnectDevice}>
           {connected ? "Disconnect" : "Connect"}

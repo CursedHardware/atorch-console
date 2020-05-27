@@ -15,7 +15,7 @@ const EVENT_UNHANDLED = "unhandled";
 
 enum MessageType {
   Data = 0x01,
-  Reply = 0x02,
+  Confirm = 0x02,
   Command = 0x11,
 }
 
@@ -39,16 +39,14 @@ export class AtorchService {
   }
 
   private blocks: Buffer[] = [];
-  private events: EventEmitter;
+  private events = new EventEmitter();
   private device: BluetoothDevice;
   private characteristic: BluetoothRemoteGATTCharacteristic | undefined;
 
   private constructor(device: BluetoothDevice) {
-    this.events = new EventEmitter();
     this.device = device;
-
-    this.device.addEventListener("availabilitychanged", async () => this.events.emit(EVENT_AVAILABILITY, await navigator.bluetooth.getAvailability()));
-    this.device.addEventListener("gattserverdisconnected", () => this.events.emit(EVENT_CONNECTION_STATE, false));
+    device.addEventListener("availabilitychanged", async () => this.events.emit(EVENT_AVAILABILITY, await navigator.bluetooth.getAvailability()));
+    device.addEventListener("gattserverdisconnected", () => this.events.emit(EVENT_CONNECTION_STATE, false));
   }
 
   public async connect() {
@@ -73,6 +71,11 @@ export class AtorchService {
     const payload = Buffer.of(MessageType.Command, 0x03, type, ...data);
     const value = Buffer.concat([HEADER, payload, Buffer.of(getChecksum(payload))]);
     await this.characteristic?.writeValue(value);
+    return new Promise<boolean>((resolve) => {
+      const returns = (state: boolean) => (off(), resolve(state));
+      const off = this.on(EVENT_COMMAND_STATE, returns);
+      setTimeout(returns, 1000, false);
+    });
   }
 
   public on(event: typeof EVENT_AVAILABILITY, listener: (available: boolean) => void): () => void;
@@ -92,7 +95,7 @@ export class AtorchService {
     const target = event.target as BluetoothRemoteGATTCharacteristic;
     const payload = Buffer.from(target.value!.buffer);
     if (HEADER.equals(payload.slice(0, 2))) {
-      if (this.blocks && this.blocks.length !== 0) {
+      if (this.blocks.length !== 0) {
         this.emitBlock(Buffer.concat(this.blocks));
       }
       this.blocks = [payload];
@@ -102,6 +105,7 @@ export class AtorchService {
   };
 
   private emitBlock(block: Buffer) {
+    console.log("Block", block.toString("hex").toUpperCase());
     if (block[block.length - 1] !== getChecksum(block.slice(2, -1))) {
       this.events.emit(EVENT_DATA_ERROR, block);
       return;
@@ -109,10 +113,8 @@ export class AtorchService {
     const type = block[2];
     if (type === MessageType.Data) {
       this.events.emit(EVENT_REPORT, makeReport(block));
-    } else if (type === MessageType.Reply) {
-      if (block.slice(3, 5).equals(COMMAND_SUCCESSFUL)) {
-        this.events.emit(EVENT_COMMAND_STATE, true);
-      }
+    } else if (type === MessageType.Confirm) {
+      this.events.emit(EVENT_COMMAND_STATE, block.slice(3, 5).equals(COMMAND_SUCCESSFUL));
     } else {
       this.events.emit(EVENT_UNHANDLED, block);
     }

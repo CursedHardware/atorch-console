@@ -21,5 +21,5 @@ export const disconnect = createAsync("DISCONNECT", (params, dispatch, getState)
 
 export const sendCommand = createAsync("SEND_COMMAND", (type: CommandType, dispatch, getState) => {
   const { atorch } = getState();
-  return atorch?.sendCommand(type);
+  return atorch?.sendCommand(type) ?? false;
 });
