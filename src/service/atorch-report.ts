@@ -19,7 +19,7 @@ export class USBReport {
     this.wh = block.readUInt32BE(0x0d) / 100;
     this.dataP = block.readUInt16BE(0x11) / 100;
     this.dataN = block.readUInt16BE(0x13) / 100;
-    this.temperature = (block.readInt8(0x15) << 16) + block.readUInt16BE(0x16) / 100;
+    this.temperature = ((block.readInt8(0x15) << 16) + block.readUInt16BE(0x16)) / 100;
     this.duration = [block.readUInt8(0x18), block.readUInt8(0x19), block.readUInt8(0x1a)]
       .map(String)
       .map((item) => item.padStart(2, "0"))
