@@ -82,12 +82,15 @@ Offset   00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ## Checksum Algorithm
 
 ```javascript
-const payload = Buffer.from("FF551103310000000001", "hex");
+const packet = Buffer.from("FF551103310000000001", "hex");
 
-const checksum = payload.slice(2, -1).reduce((acc, item) => (acc + item) & 0xff, 0) ^ 0x44;
+const payload = packet.slice(2, -1);
+// "11033100000000" (hex string)
+
+const checksum = payload.reduce((acc, item) => (acc + item) & 0xff, 0) ^ 0x44;
 // checksum: 0x01
 
-payload[payload.length - 1] == checksum;
+packet[packet.length - 1] == checksum;
 // returns true
 ```
 
