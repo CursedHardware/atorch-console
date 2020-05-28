@@ -73,6 +73,7 @@ const configuration: webpack.Configuration = {
       filename: "[name].css",
     }),
   ],
+  stats: "minimal",
 };
 
 export default configuration;
