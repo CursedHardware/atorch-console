@@ -67,6 +67,7 @@ const configuration: webpack.Configuration = {
   plugins: [
     new HTMLPlugin({
       title: "Atorch Console for UD18",
+      favicon: require.resolve("./assets/ammeter.png"),
     }),
     new CSSPlugin({
       filename: "[name].css",

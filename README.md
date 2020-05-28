@@ -15,6 +15,7 @@ In addition, you can buy the compatible hardware from the following link.
 - [UD18 User Manual](docs/UD18-User-manual.jpg)
 - [UD18 SPP (captured packet)](docs/UD18-SPP.pcap)
 - <https://github.com/msillano/UD18-protocol-and-node-red>
+- <https://www.flaticon.com/free-icon/ammeter_182696> (of favicon)
 
 ## License
 
