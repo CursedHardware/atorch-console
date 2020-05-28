@@ -1,12 +1,13 @@
 # Atorch Console for UD18
 
-The console based Web Bluetooth.
+> The console based Web Bluetooth.
+> Note: Atorch Chinese is "炬为"
 
 ## Recommended Hardware
 
 In addition, you can buy the compatible hardware from the following link.
 
-- <https://detail.tmall.com/item.htm?id=597691329775>
+- <https://detail.tmall.com/item.htm?id=597691329775> (炬为 UD18, 98 CNY)
 
 ## Reference
 

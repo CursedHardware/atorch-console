@@ -6,6 +6,7 @@ import { loader as TypedCSSLoader } from "@nice-labs/typed-css-modules";
 
 const configuration: webpack.Configuration = {
   context: __dirname,
+  devtool: "source-map",
   optimization: {
     splitChunks: {
       chunks: "all",
