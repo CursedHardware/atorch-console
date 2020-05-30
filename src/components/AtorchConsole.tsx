@@ -1,8 +1,9 @@
+import classNames from "classnames";
 import _ from "lodash";
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ButtonGroup, Button, Row, Container, Table, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
-import classNames from "classnames";
 
 import locals from "./AtorchConsole.scss";
 
@@ -43,14 +44,14 @@ export const AtorchConsole: React.FC = () => {
     }
   };
 
-  const data: Record<string, string | number | undefined> = {
-    Voltage: report?.voltage,
-    Amp: report?.amp,
-    Watt: report?.watt,
-    "mA·h": report?.mah,
-    "W·h": report?.wh,
-    "D+": report?.dataP,
-    "D-": report?.dataN,
+  const data: Record<string, string | undefined> = {
+    Voltage: formatUnit(report?.mVoltage, "V"),
+    Ampere: formatUnit(report?.mAmpere, "A"),
+    Watt: formatUnit(report?.mWatt, "W"),
+    "A·h": formatUnit(report?.mAh, "A·h"),
+    "W·h": formatUnit(report?.mWh, "W·h"),
+    "D+": formatUnit(report?.dataP, "V"),
+    "D-": formatUnit(report?.dataN, "V"),
     Duration: report?.duration,
   };
 
@@ -85,7 +86,7 @@ export const AtorchConsole: React.FC = () => {
             {_.map(data, (value, key) => (
               <tr key={key}>
                 <th className="text-monospace text-right">{key}</th>
-                <td className="text-monospace">{value}</td>
+                <td className="text-monospace">{value ?? "N/A"}</td>
               </tr>
             ))}
           </tbody>
@@ -103,3 +104,13 @@ export const AtorchConsole: React.FC = () => {
     </Container>
   );
 };
+
+function formatUnit(value: number | undefined, unit: string) {
+  if (value === undefined) {
+    return;
+  } else if (value < 100) {
+    return `${value} m${unit}`;
+  } else {
+    return `${(value * 100) / 10000} ${unit}`;
+  }
+}

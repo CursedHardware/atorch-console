@@ -1,24 +1,22 @@
 export class USBReport {
-  public readonly voltage: number;
-  public readonly amp: number;
-  public readonly watt: number;
-  public readonly mah: number;
-  public readonly wh: number;
+  public readonly mVoltage: number;
+  public readonly mAmpere: number;
+  public readonly mWatt: number;
+  public readonly mAh: number;
+  public readonly mWh: number;
   public readonly dataP: number;
   public readonly dataN: number;
   public readonly temperature: number;
   public readonly duration: string;
 
   public constructor(block: Buffer) {
-    const voltage = readUInt24BE(block, 0x04);
-    const amp = readUInt24BE(block, 0x07);
-    this.voltage = voltage / 100;
-    this.amp = amp / 100;
-    this.watt = (voltage * amp) / 10000;
-    this.mah = readUInt24BE(block, 0x0a);
-    this.wh = block.readUInt32BE(0x0d) / 100;
-    this.dataP = block.readUInt16BE(0x11) / 100;
-    this.dataN = block.readUInt16BE(0x13) / 100;
+    this.mVoltage = readUInt24BE(block, 0x04);
+    this.mAmpere = readUInt24BE(block, 0x07);
+    this.mWatt = (this.mVoltage * this.mAmpere) / 100;
+    this.mAh = readUInt24BE(block, 0x0a);
+    this.mWh = block.readUInt32BE(0x0d);
+    this.dataP = block.readUInt16BE(0x11);
+    this.dataN = block.readUInt16BE(0x13);
     this.temperature = readUInt24BE(block, 0x15) / 100;
     this.duration = [block.readUInt8(0x18), block.readUInt8(0x19), block.readUInt8(0x1a)]
       .map(String)
@@ -29,7 +27,7 @@ export class USBReport {
   }
 
   public toString() {
-    return `${this.voltage} V @ ${this.amp} A (${this.watt} W)`;
+    return `${this.mVoltage / 100} V @ ${this.mAmpere / 100} A`;
   }
 }
 
