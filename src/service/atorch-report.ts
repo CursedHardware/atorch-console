@@ -12,7 +12,7 @@ export class USBReport {
   public constructor(block: Buffer) {
     this.mVoltage = readUInt24BE(block, 0x04) * 10;
     this.mAmpere = readUInt24BE(block, 0x07) * 10;
-    this.mWatt = Math.trunc((this.mVoltage * this.mAmpere) / 1000);
+    this.mWatt = Math.round((this.mVoltage * this.mAmpere) / 1000);
     this.mAh = readUInt24BE(block, 0x0a) * 10;
     this.mWh = block.readUInt32BE(0x0d) * 10;
     this.dataP = block.readUInt16BE(0x11) * 10;
@@ -27,7 +27,7 @@ export class USBReport {
   }
 
   public toString() {
-    return `${this.mVoltage / 100} V @ ${this.mAmpere / 100} A`;
+    return `${this.mVoltage / 1000} V @ ${this.mAmpere / 1000} A`;
   }
 }
 
