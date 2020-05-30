@@ -109,7 +109,7 @@ function formatUnit(value: number | undefined, unit: string) {
   if (value === undefined) {
     return;
   } else if (value < 100) {
-    return `${value} m${unit}`;
+    return `${value * 10} m${unit}`;
   } else {
     return `${(value * 100) / 10000} ${unit}`;
   }
