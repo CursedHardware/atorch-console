@@ -10,13 +10,13 @@ export class USBReport {
   public readonly duration: string;
 
   public constructor(block: Buffer) {
-    this.mVoltage = readUInt24BE(block, 0x04);
-    this.mAmpere = readUInt24BE(block, 0x07);
-    this.mWatt = (this.mVoltage * this.mAmpere) / 100;
-    this.mAh = readUInt24BE(block, 0x0a);
-    this.mWh = block.readUInt32BE(0x0d);
-    this.dataP = block.readUInt16BE(0x11);
-    this.dataN = block.readUInt16BE(0x13);
+    this.mVoltage = readUInt24BE(block, 0x04) * 10;
+    this.mAmpere = readUInt24BE(block, 0x07) * 10;
+    this.mWatt = Math.trunc((this.mVoltage * this.mAmpere) / 1000);
+    this.mAh = readUInt24BE(block, 0x0a) * 10;
+    this.mWh = block.readUInt32BE(0x0d) * 10;
+    this.dataP = block.readUInt16BE(0x11) * 10;
+    this.dataN = block.readUInt16BE(0x13) * 10;
     this.temperature = readUInt24BE(block, 0x15) / 100;
     this.duration = [block.readUInt8(0x18), block.readUInt8(0x19), block.readUInt8(0x1a)]
       .map(String)

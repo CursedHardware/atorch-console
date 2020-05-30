@@ -108,9 +108,9 @@ export const AtorchConsole: React.FC = () => {
 function formatUnit(value: number | undefined, unit: string) {
   if (value === undefined) {
     return;
-  } else if (value < 100) {
-    return `${value * 10} m${unit}`;
+  } else if (value < 1000) {
+    return `${value} m${unit}`;
   } else {
-    return `${(value * 100) / 10000} ${unit}`;
+    return `${value / 1000} ${unit}`;
   }
 }
