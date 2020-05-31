@@ -1,16 +1,16 @@
-import classNames from "classnames";
 import _ from "lodash";
 
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ButtonGroup, Button, Row, Container, Table, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { ButtonGroup, Button, Row, Container, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
-import locals from "./AtorchConsole.scss";
+import locals from "./index.scss";
 
-import { useWatchReport, useConnected } from "../hooks/atorch";
-import { CommandType } from "../service/atorch-service";
-import { requestDevice, connect, disconnect, sendCommand } from "../actions/atorch";
-import { ReportType } from "../service/atorch-report";
+import { useWatchReport, useConnected } from "../../hooks/atorch";
+import { CommandType } from "../../service/atorch-service";
+import { requestDevice, connect, disconnect, sendCommand } from "../../actions/atorch";
+import { ReportType } from "../../service/atorch-report";
+import { PrintReport } from "./PrintReport";
 
 const btnResets: Record<string, CommandType> = {
   "A·h": CommandType.ResetAh,
@@ -21,9 +21,9 @@ const btnResets: Record<string, CommandType> = {
 
 const btnFn: Record<string, CommandType> = {
   Setup: CommandType.Setup,
-  Enter: CommandType.Enter,
   "+": CommandType.Plus,
   "-": CommandType.Minus,
+  Enter: CommandType.Enter,
 };
 
 export const AtorchConsole: React.FC = () => {
@@ -42,17 +42,6 @@ export const AtorchConsole: React.FC = () => {
       await dispatch(requestDevice());
       await dispatch(connect());
     }
-  };
-
-  const data: Record<string, string | undefined> = {
-    Voltage: formatUnit(report?.mVoltage, "V"),
-    Ampere: formatUnit(report?.mAmpere, "A"),
-    Watt: formatUnit(report?.mWatt, "W"),
-    "A·h": formatUnit(report?.mAh, "A·h"),
-    "W·h": formatUnit(report?.mWh, "W·h"),
-    "D+": formatUnit(report?.dataP, "V"),
-    "D-": formatUnit(report?.dataN, "V"),
-    Duration: report?.duration,
   };
 
   return (
@@ -75,22 +64,7 @@ export const AtorchConsole: React.FC = () => {
         </ButtonDropdown>
       </Row>
       <Row className="ml-2 justify-content-center">
-        <Table hover borderless size="sm" className={locals.table}>
-          <thead>
-            <tr>
-              <th className={classNames("text-right", locals.name)}>#</th>
-              <th className={locals.value}>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {_.map(data, (value, key) => (
-              <tr key={key}>
-                <th className="text-monospace text-right">{key}</th>
-                <td className="text-monospace">{value ?? "N/A"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <PrintReport report={report} />
       </Row>
       <Row className="ml-2 justify-content-center">
         <ButtonGroup>
@@ -104,13 +78,3 @@ export const AtorchConsole: React.FC = () => {
     </Container>
   );
 };
-
-function formatUnit(value: number | undefined, unit: string) {
-  if (value === undefined) {
-    return;
-  } else if (value < 1000) {
-    return `${value} m${unit}`;
-  } else {
-    return `${value / 1000} ${unit}`;
-  }
-}
