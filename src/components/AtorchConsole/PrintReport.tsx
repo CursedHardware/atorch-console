@@ -43,9 +43,13 @@ export const PrintReport: React.FC<Props> = ({ report }) => {
 function formatUnit(value: number | undefined, unit: string) {
   if (value === undefined) {
     return;
-  } else if (value < 1000) {
-    return `${value} m${unit}`;
-  } else {
-    return `${value / 1000} ${unit}`;
+  }
+  const prefixes = ["m", "", "k"];
+  for (const prefix of prefixes) {
+    if (value > 1000) {
+      value /= 1000;
+      continue;
+    }
+    return `${value} ${prefix}${unit}`;
   }
 }

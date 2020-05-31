@@ -21,8 +21,8 @@ const btnResets: Record<string, CommandType> = {
 
 const btnFn: Record<string, CommandType> = {
   Setup: CommandType.Setup,
-  "+": CommandType.Plus,
-  "-": CommandType.Minus,
+  "\u2795": CommandType.Plus,
+  "\u2796": CommandType.Minus,
   Enter: CommandType.Enter,
 };
 
