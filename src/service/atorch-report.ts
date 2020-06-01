@@ -15,8 +15,8 @@ export class USBReport {
     this.mWatt = Math.round((this.mVoltage * this.mAmpere) / 1000);
     this.mAh = readUInt24BE(block, 0x0a) * 10;
     this.mWh = block.readUInt32BE(0x0d) * 10;
-    this.dataP = block.readUInt16BE(0x11) * 10;
-    this.dataN = block.readUInt16BE(0x13) * 10;
+    this.dataN = block.readUInt16BE(0x11) * 10;
+    this.dataP = block.readUInt16BE(0x13) * 10;
     this.temperature = readUInt24BE(block, 0x15) / 100;
     this.duration = [block.readUInt8(0x18), block.readUInt8(0x19), block.readUInt8(0x1a)]
       .map(String)
