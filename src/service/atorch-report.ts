@@ -9,12 +9,12 @@ export class ACReport {
 
   public constructor(block: Buffer) {
     this.mVoltage = readUInt24BE(block, 0x04) * 100;
-    this.mAmpere = readUInt24BE(block, 0x07) * 10;
+    this.mAmpere = readUInt24BE(block, 0x07);
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
-    this.frequency = block.readUInt16BE(0x14) / 100;
+    this.frequency = block.readUInt16BE(0x14) / 10;
     this.pf = block.readUInt16BE(0x16) / 1000;
     this.temperature = block.readUInt16BE(0x18) / 100;
-    this.duration = this.formatDuration(block.readUInt32BE(0x1a));
+    this.duration = this.formatDuration(readUInt24BE(block, 0x1b));
     Object.freeze(this);
     Object.seal(this);
   }

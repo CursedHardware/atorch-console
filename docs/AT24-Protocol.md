@@ -39,7 +39,7 @@
 0018 00
 0019 2F Internal temperature as INT16
 
-001A 00 Duration
+001A 00
 001B 00 Duration
 001C 06 Duration
 001D 14 Duration as INT32
