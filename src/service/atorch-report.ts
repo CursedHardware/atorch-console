@@ -13,21 +13,17 @@ export class ACReport {
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
     this.frequency = block.readUInt16BE(0x14) / 10;
     this.pf = block.readUInt16BE(0x16) / 1000;
-    this.temperature = block.readUInt16BE(0x18) / 100;
-    this.duration = this.formatDuration(readUInt24BE(block, 0x1b));
+    this.temperature = block.readUInt16BE(0x18) / 10;
+    this.duration = [block.readUInt8(0x1a), block.readUInt8(0x1b), block.readUInt8(0x1d)]
+      .map(String)
+      .map((item) => item.padStart(2, "0"))
+      .join(":");
     Object.freeze(this);
     Object.seal(this);
   }
 
   public toString() {
     return `${this.mVoltage / 1000} V @ ${this.mAmpere / 1000} A`;
-  }
-
-  private formatDuration(input: number) {
-    const hours = Math.floor(input / 3600);
-    const minutes = Math.floor((input - hours * 3600) / 60);
-    const seconds = input - hours * 3600 - minutes * 60;
-    return [hours, minutes, seconds].map((item) => String(item).padStart(2, "0")).join(":");
   }
 }
 
