@@ -3,17 +3,17 @@ export class ACReport {
   public readonly mAmpere: number;
   public readonly mWatt: number;
   public readonly frequency: number;
-  public readonly powerFactor: number;
-  public readonly internalTemperature: number;
+  public readonly pf: number;
+  public readonly temperature: number;
   public readonly duration: string;
 
   public constructor(block: Buffer) {
     this.mVoltage = readUInt24BE(block, 0x04) * 100;
-    this.mAmpere = readUInt24BE(block, 0x07) * 100;
+    this.mAmpere = readUInt24BE(block, 0x07) * 10;
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
-    this.frequency = block.readUInt16BE(0x14) * 10;
-    this.powerFactor = block.readUInt16BE(0x16) / 100;
-    this.internalTemperature = block.readUInt16BE(0x18) / 100;
+    this.frequency = block.readUInt16BE(0x14) / 100;
+    this.pf = block.readUInt16BE(0x16) / 1000;
+    this.temperature = block.readUInt16BE(0x18) / 100;
     this.duration = this.formatDuration(block.readUInt32BE(0x1a));
     Object.freeze(this);
     Object.seal(this);
