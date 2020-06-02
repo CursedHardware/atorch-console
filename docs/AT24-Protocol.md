@@ -34,14 +34,13 @@
 0015 F4 Frequency, as INT16, /10
 
 0016 00
-0017 85 Internal temperature as INT16,
+0017 85 Power factor as INT16,
 
 0018 00
-0019 2F External temperature as INT16,
+0019 2F Internal temperature as INT16,
 
 001A 00
 001B 00
-
 001C 06
 001D 14
 

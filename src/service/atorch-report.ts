@@ -3,22 +3,31 @@ export class ACReport {
   public readonly mAmpere: number;
   public readonly mWatt: number;
   public readonly frequency: number;
+  public readonly powerFactor: number;
   public readonly internalTemperature: number;
-  public readonly externalTemperature: number;
+  public readonly duration: string;
 
   public constructor(block: Buffer) {
     this.mVoltage = readUInt24BE(block, 0x04) * 100;
     this.mAmpere = readUInt24BE(block, 0x07) * 100;
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
     this.frequency = block.readUInt16BE(0x14) * 10;
-    this.internalTemperature = block.readUInt16BE(0x16);
-    this.externalTemperature = block.readUInt16BE(0x18);
+    this.powerFactor = block.readUInt16BE(0x16) / 100;
+    this.internalTemperature = block.readUInt16BE(0x18) / 100;
+    this.duration = this.formatDuration(block.readUInt32BE(0x1a));
     Object.freeze(this);
     Object.seal(this);
   }
 
   public toString() {
     return `${this.mVoltage / 1000} V @ ${this.mAmpere / 1000} A`;
+  }
+
+  private formatDuration(input: number) {
+    const hours = Math.floor(input / 3600);
+    const minutes = Math.floor((input - hours * 3600) / 60);
+    const seconds = input - hours * 3600 - minutes * 60;
+    return [hours, minutes, seconds].map((item) => String(item).padStart(2, "0")).join(":");
   }
 }
 
