@@ -55,7 +55,7 @@ const PrintACReport: React.FC<{ report: ACReport }> = ({ report }) => {
     Ampere: formatUnit(report.mAmpere, "A"),
     Watt: formatUnit(report.mWatt, "W"),
     Frequency: report.frequency,
-    PF: report.powerFactor,
+    PF: report.pf,
     Temperature: report.temperature,
     Duration: report.duration,
   };
