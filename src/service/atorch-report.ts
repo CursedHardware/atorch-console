@@ -63,6 +63,8 @@ export function makeReport(block: Buffer) {
   switch (type) {
     case 0x01:
       return new ACReport(block);
+    case 0x02:
+      return; // DCReport
     case 0x03:
       return new USBReport(block);
   }
