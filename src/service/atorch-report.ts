@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export class ACReport {
   public readonly mVoltage: number;
   public readonly mAmpere: number;
@@ -71,8 +73,5 @@ function readUInt24BE(block: Buffer, offset: number) {
 }
 
 function readDuration(block: Buffer, offset: number) {
-  return [block.readUInt8(offset), block.readUInt8(offset + 1), block.readUInt8(offset + 2)]
-    .map(String)
-    .map((item) => item.padStart(2, "0"))
-    .join(":");
+  return _.times(3, (n) => String(block.readUInt8(offset + n)).padStart(2, "0")).join(":");
 }
