@@ -14,7 +14,7 @@ export class ACReport {
     this.mVoltage = readUInt24BE(block, 0x04) * 100;
     this.mAmpere = readUInt24BE(block, 0x07);
     this.mWatt = readUInt24BE(block, 0x0a) * 100;
-    this.price = block.readUInt8(0x11) / 100;
+    this.price = block.readUInt8(0x13) / 100;
     this.frequency = block.readUInt16BE(0x14) / 10;
     this.pf = block.readUInt16BE(0x16) / 1000;
     this.temperature = block.readUInt16BE(0x18) / 10;

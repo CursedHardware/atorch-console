@@ -38,8 +38,9 @@ Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ```plain
 0000 FF magic header
 0001 55 magic header
-0002 01 type: 01: data, 0x11: command, 02: ack-command
-0003 03 ??
+
+0002 01 command type: 01: data, 02: ack-command, 11: command
+0003 03  device type: 01: AC, 03: USB
 
 0004 00 V
 0005 00 V
@@ -72,7 +73,8 @@ Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 0019 2E t-m, as BYTE, min
 001A 33 t-s, as BYTE, sec.
 
-001B 3C
+001B 3C magic end
+
 001C 00
 001D 00
 001E 00
@@ -80,6 +82,7 @@ Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 0020 00
 0021 00
 0022 00
+
 0023 4E checksum
 ```
 
