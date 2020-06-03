@@ -40,9 +40,9 @@
 0019 2F Internal temperature as INT16
 
 001A 00
-001B 00 Duration
-001C 06 Duration
-001D 14 Duration as INT32
+001B 12 t-h, as BYTE, hour
+001C 2E t-m, as BYTE, min
+001C 33 t-s, as BYTE, sec.
 
 001E 3C
 

@@ -14,10 +14,7 @@ export class ACReport {
     this.frequency = block.readUInt16BE(0x14) / 10;
     this.pf = block.readUInt16BE(0x16) / 1000;
     this.temperature = block.readUInt16BE(0x18) / 10;
-    this.duration = [block.readUInt8(0x1a), block.readUInt8(0x1b), block.readUInt8(0x1d)]
-      .map(String)
-      .map((item) => item.padStart(2, "0"))
-      .join(":");
+    this.duration = readDuration(block, 0x1a);
     Object.freeze(this);
     Object.seal(this);
   }
@@ -47,10 +44,7 @@ export class USBReport {
     this.dataN = block.readUInt16BE(0x11) * 10;
     this.dataP = block.readUInt16BE(0x13) * 10;
     this.temperature = readUInt24BE(block, 0x15) / 100;
-    this.duration = [block.readUInt8(0x18), block.readUInt8(0x19), block.readUInt8(0x1a)]
-      .map(String)
-      .map((item) => item.padStart(2, "0"))
-      .join(":");
+    this.duration = readDuration(block, 0x18);
     Object.freeze(this);
     Object.seal(this);
   }
@@ -74,4 +68,11 @@ export function makeReport(block: Buffer) {
 
 function readUInt24BE(block: Buffer, offset: number) {
   return (block.readInt8(offset) << 16) + block.readUInt16BE(offset + 1);
+}
+
+function readDuration(block: Buffer, offset: number) {
+  return [block.readUInt8(offset), block.readUInt8(offset + 1), block.readUInt8(offset + 2)]
+    .map(String)
+    .map((item) => item.padStart(2, "0"))
+    .join(":");
 }
