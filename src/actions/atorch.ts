@@ -1,7 +1,7 @@
 import actionCreatorFactory from "typescript-fsa";
 import { asyncFactory } from "typescript-fsa-redux-thunk";
 
-import { AtorchService, CommandType } from "../service/atorch-service";
+import { AtorchService } from "../service/atorch-service";
 import { RootState } from "../reducers";
 
 const create = actionCreatorFactory("ATORCH");
@@ -19,7 +19,7 @@ export const disconnect = createAsync("DISCONNECT", (params, dispatch, getState)
   return atorch?.disconnect();
 });
 
-export const sendCommand = createAsync("SEND_COMMAND", (type: CommandType, dispatch, getState) => {
+export const sendCommand = createAsync("SEND_COMMAND", (code: number, dispatch, getState) => {
   const { atorch } = getState();
-  return atorch?.sendCommand(type) ?? false;
+  return atorch?.sendCommand(code);
 });

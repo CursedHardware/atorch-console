@@ -3,31 +3,32 @@ import React from "react";
 import { Table } from "reactstrap";
 import classNames from "classnames";
 import locals from "./index.scss";
-import { ReportType, USBReport, ACReport } from "../../service/atorch-report";
+import { MeterPacketType, USBMeterPacket, ACMeterPacket } from "../../service/atorch-packet";
 
 interface Props {
-  report?: ReportType;
+  packet?: MeterPacketType;
 }
 
-export const PrintReport: React.FC<Props> = ({ report }) => {
-  if (report instanceof USBReport) {
-    return <PrintUSBReport report={report} />;
-  } else if (report instanceof ACReport) {
-    return <PrintACReport report={report} />;
+export const PrintReport: React.FC<Props> = ({ packet }) => {
+  if (packet instanceof USBMeterPacket) {
+    return <PrintUSBReport packet={packet} />;
+  } else if (packet instanceof ACMeterPacket) {
+    return <PrintACReport packet={packet} />;
   }
   return <p>Not connected to device.</p>;
 };
 
-const PrintUSBReport: React.FC<{ report: USBReport }> = ({ report }) => {
+const PrintUSBReport: React.FC<{ packet: USBMeterPacket }> = ({ packet }) => {
   const data: Record<string, string | undefined> = {
-    Voltage: formatUnit(report.mVoltage, "V"),
-    Ampere: formatUnit(report.mAmpere, "A"),
-    Watt: formatUnit(report.mWatt, "W"),
-    "A·h": formatUnit(report.mAh, "A·h"),
-    "W·h": formatUnit(report.mWh, "W·h"),
-    "D-": formatUnit(report.dataN, "V"),
-    "D+": formatUnit(report.dataP, "V"),
-    Duration: report.duration,
+    Voltage: formatUnit(packet.mVoltage, "V"),
+    Ampere: formatUnit(packet.mAmpere, "A"),
+    Watt: formatUnit(packet.mWatt, "W"),
+    "A·h": formatUnit(packet.mAh, "A·h"),
+    "W·h": formatUnit(packet.mWh, "W·h"),
+    "D-": formatUnit(packet.dataN, "V"),
+    "D+": formatUnit(packet.dataP, "V"),
+    Temperature: `${packet.temperature || "N/A"} \u2103`,
+    Duration: packet.duration,
   };
   return (
     <Table hover borderless size="sm" className={locals.table}>
@@ -49,16 +50,18 @@ const PrintUSBReport: React.FC<{ report: USBReport }> = ({ report }) => {
   );
 };
 
-const PrintACReport: React.FC<{ report: ACReport }> = ({ report }) => {
+const PrintACReport: React.FC<{ packet: ACMeterPacket }> = ({ packet }) => {
   const data: Record<string, any> = {
-    Voltage: formatUnit(report.mVoltage, "V"),
-    Ampere: formatUnit(report.mAmpere, "A"),
-    Watt: formatUnit(report.mWatt, "W"),
-    Price: report.price,
-    Frequency: report.frequency,
-    PF: report.pf,
-    Temperature: report.temperature,
-    Duration: report.duration,
+    Voltage: formatUnit(packet.mVoltage, "V"),
+    Ampere: formatUnit(packet.mAmpere, "A"),
+    Watt: formatUnit(packet.mWatt, "W"),
+    "W·h": formatUnit(packet.mWh, "W·h"),
+    Price: packet.price / 100,
+    Fee: packet.fee / 100,
+    Frequency: `${packet.frequency} Hz`,
+    PF: packet.pf,
+    Temperature: `${packet.temperature} \u2103`,
+    Duration: packet.duration,
   };
 
   return (

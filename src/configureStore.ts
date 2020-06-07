@@ -1,14 +1,18 @@
-import { createStore, compose, applyMiddleware, PreloadedState } from "redux";
-import thunk from "redux-thunk";
-import { createHashHistory } from "history";
+import { createStore, compose, applyMiddleware, PreloadedState, AnyAction } from "redux";
+import thunk, { ThunkDispatch, ThunkMiddleware } from "redux-thunk";
+import { createMemoryHistory } from "history";
 import { routerMiddleware } from "connected-react-router";
 
-import { createRootReducer } from "./reducers";
+import { createRootReducer, RootState } from "./reducers";
 
-export const history = createHashHistory();
+export const history = createMemoryHistory();
+
+declare module "react-redux" {
+  function useDispatch(): ThunkDispatch<RootState, never, AnyAction>;
+}
 
 // @ts-ignore
-const composeEnhancers: typeof compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers: typeof compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?? compose;
 
 export const configureStore = <S>(preloadedState?: PreloadedState<S>) =>
   createStore(
@@ -17,7 +21,7 @@ export const configureStore = <S>(preloadedState?: PreloadedState<S>) =>
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history), // connected-react-router
-        thunk, // redux-thunk
+        thunk as ThunkMiddleware<RootState>, // redux-thunk
       ),
     ),
   );
