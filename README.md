@@ -36,6 +36,7 @@ from <https://juweicn.taobao.com> (炬为电器技术创新产品)
 - [UD18 Introduction](docs/UD18-Introduction.jpg)
 - [UD18 User Manual](docs/UD18-User-manual.jpg)
 - [UD18 SPP (captured packet)](docs/UD18-SPP.pcap)
+- [部分充电协议电压逻辑表](docs/PD-Relationship.jpg)
 - <https://github.com/msillano/UD18-protocol-and-node-red>
 - <https://www.flaticon.com/free-icon/ammeter_182696> (of favicon)
 
