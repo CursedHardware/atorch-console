@@ -1,4 +1,4 @@
-import { createStore, compose, applyMiddleware, PreloadedState, AnyAction } from "redux";
+import { createStore, compose, applyMiddleware, AnyAction } from "redux";
 import thunk, { ThunkDispatch, ThunkMiddleware } from "redux-thunk";
 import { createMemoryHistory } from "history";
 import { routerMiddleware } from "connected-react-router";
@@ -11,13 +11,15 @@ declare module "react-redux" {
   function useDispatch(): ThunkDispatch<RootState, never, AnyAction>;
 }
 
-// @ts-ignore
-const composeEnhancers: typeof compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?? compose;
+const composeEnhancers: typeof compose =
+  process.env.NODE_ENV === "production"
+    ? compose
+    : (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?? compose;
 
-export const configureStore = <S>(preloadedState?: PreloadedState<S>) =>
+export const configureStore = () =>
   createStore(
     createRootReducer(history),
-    preloadedState,
+    undefined,
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history), // connected-react-router

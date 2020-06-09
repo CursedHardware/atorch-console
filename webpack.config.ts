@@ -7,14 +7,8 @@ import { loader as TypedCSSLoader } from "@nice-labs/typed-css-modules";
 const configuration: webpack.Configuration = {
   context: __dirname,
   devtool: "source-map",
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-    },
-  },
-  resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"],
-  },
+  optimization: { splitChunks: { chunks: "all" } },
+  resolve: { extensions: [".ts", ".tsx", ".js", ".json"] },
   module: {
     rules: [
       {
@@ -60,19 +54,13 @@ const configuration: webpack.Configuration = {
       },
     ],
   },
-  devServer: {
-    hot: false,
-    inline: false,
-    https: true,
-  },
+  devServer: { hot: false, inline: false, https: true },
   plugins: [
     new HTMLPlugin({
       title: "Atorch Console",
       favicon: require.resolve("./assets/ammeter.png"),
     }),
-    new CSSPlugin({
-      filename: "[name].css",
-    }),
+    new CSSPlugin({ filename: "[name].css" }),
   ],
   stats: "minimal",
 };

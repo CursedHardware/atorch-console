@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../reducers";
-import { isMeterPacket, MeterPacketType, PacketType } from "../service/atorch-packet";
+import {
+  isMeterPacket,
+  MeterPacketType,
+  PacketType,
+} from "../service/atorch-packet";
 
-export const useAtorchService = () => useSelector((state: RootState) => state.atorch);
+export const useAtorchService = () =>
+  useSelector((state: RootState) => state.atorch);
 
 export const useConnected = () => {
   const [connected, setConnected] = useState(false);
   const service = useAtorchService();
-  useEffect(() => service?.on("connection-state", setConnected), [service]);
+  useEffect(() => service?.on("state", setConnected), [service]);
   return connected;
 };
 

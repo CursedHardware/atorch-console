@@ -8,8 +8,13 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint"],
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier/@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "react"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "prettier/@typescript-eslint"
+  ],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "react/prop-types": "off",

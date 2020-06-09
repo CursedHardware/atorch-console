@@ -1,6 +1,15 @@
-import { assertPacket, assertMeterPacket, MessageType, readUInt24BE, readDuration } from "./utils";
+import { CommandPacket } from "./packet-command";
+import { readUInt24BE, readDuration } from "./utils";
+import { assertPacket, assertMeterPacket } from "./asserts";
+import { MessageType } from "./types";
+
+const type = 0x03;
 
 export class USBMeterPacket {
+  public static makeCommand(code: number) {
+    return CommandPacket.make(type, code);
+  }
+
   public readonly mVoltage: number;
   public readonly mAmpere: number;
   public readonly mWatt: number;
@@ -13,7 +22,7 @@ export class USBMeterPacket {
 
   public constructor(block: Buffer) {
     assertPacket(block, MessageType.Report);
-    assertMeterPacket(block, 0x03, "USB Meter");
+    assertMeterPacket(block, type, "USB Meter");
     this.mVoltage = readUInt24BE(block, 0x04) * 10;
     this.mAmpere = readUInt24BE(block, 0x07) * 10;
     this.mWatt = Math.round((this.mVoltage * this.mAmpere) / 1000);

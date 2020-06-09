@@ -1,5 +1,24 @@
 ﻿# Atorch protocol design
 
+## Initial connection information
+
+### Bluetootch Profile
+
+Device broadcast name: `UD18-SPP`, `AT24-SPP`, etc `*-SPP`
+
+| Profile             |
+| ------------------- |
+| Serial Port Profile |
+
+### Bluetootch LE
+
+Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
+
+| Type           | UUID                                   |
+| -------------- | -------------------------------------- |
+| Service        | `0000FFE0-0000-1000-8000-00805F9B34FB` |
+| Characteristic | `0000FFE1-0000-1000-8000-00805F9B34FB` |
+
 ## Host to Slave (USB Meter available)
 
 | Function       | Packet                          |
@@ -13,11 +32,13 @@
 | `[+]` Command  | `FF 55 11 03 33 00 00 00 00 03` |
 | `[-]` Command  | `FF 55 11 03 34 00 00 00 00 0C` |
 
-## Slave to Host (Generanl)
+## Slave to Host (General)
 
-| Function | Packet                    |
-| -------- | ------------------------- |
-| OK       | `FF 55 02 01 01 00 00 40` |
+| Function    | Packet                    |
+| ----------- | ------------------------- |
+| OK          | `FF 55 02 01 01 00 00 40` |
+| ??          | `FF 55 02 01 02 00 00 41` |
+| Unsupported | `FF 55 02 01 03 00 00 42` |
 
 ## Sample Packets (from UD18)
 
@@ -40,7 +61,7 @@ Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 0001 55 magic header
 
 0002 01 command type: 01: data, 02: ack-command, 11: command
-0003 03  device type: 01: AC, 03: USB
+0003 01  device type: 01: AC, 03: USB
 
 0004 00 V
 0005 08 V
@@ -80,8 +101,10 @@ Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 
 001E 00
 001F 00
+
 0020 00
 0021 00
+
 0022 00
 
 0023 A1 checksum
@@ -132,10 +155,13 @@ Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 
 001C 00
 001D 00
+
 001E 00
 001F 00
+
 0020 00
 0021 00
+
 0022 00
 
 0023 4E checksum

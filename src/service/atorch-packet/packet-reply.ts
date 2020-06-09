@@ -1,4 +1,5 @@
-import { assertPacket, MessageType, ReplyType } from "./utils";
+import { MessageType, ReplyType } from "./types";
+import { assertPacket } from "./asserts";
 
 export class ReplyPacket {
   public data: Buffer;
@@ -11,12 +12,12 @@ export class ReplyPacket {
   }
 
   public toType(): ReplyType | undefined {
-    const types = [ReplyType.OK];
-    for (const type of types) {
-      if (!Buffer.from(type, "hex").equals(this.data)) {
+    const blocks = Object.values(ReplyType) as ReplyType[];
+    for (const block of blocks) {
+      if (!Buffer.from(block, "hex").equals(this.data)) {
         continue;
       }
-      return type;
+      return block;
     }
     return;
   }

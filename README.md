@@ -8,27 +8,28 @@
 
 > Welcome to report more compatible hardware.
 
-- USB Meter
-
-  - Atorch UD18
-  - Atorch T18 (UNTESTED)
-  - Atorch DL24 (UNTESTED)
-
-- AC Meter
-
-  - Atorch AT24
-  - Atorch AT3010 (UNTESTED)
+| Type      | Modal         | State  |
+| --------- | ------------- | ------ |
+| AC Meter  | Atorch AT24   | TESTED |
+| AC Meter  | Atorch AT3010 |        |
+| USB Meter | Atorch UD18   | TESTED |
+| USB Meter | Atorch T18    |        |
+| USB Meter | Atorch DL24   |        |
 
 ## Recommended Hardware
 
 In addition, you can buy the compatible hardware from the following link.
 
-- <https://detail.tmall.com/item.htm?id=597691329775> (炬为 UD18)
-- <https://detail.tmall.com/item.htm?id=616170540023> (炬为 AT24)
+| Product Name | Link                                                |
+| ------------ | --------------------------------------------------- |
+| Atorch UD18  | <https://detail.tmall.com/item.htm?id=597691329775> |
+| Atorch AT24  | <https://detail.tmall.com/item.htm?id=616170540023> |
 
-from <https://juweism.tmall.com> (炬为旗舰店)
+### Official Store
 
-from <https://juweicn.taobao.com> (炬为电器技术创新产品)
+- <https://juweism.tmall.com>
+- <https://juweicn.taobao.com>
+- <https://juwei.jd.com>
 
 ## Reference
 
