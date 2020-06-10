@@ -25,7 +25,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | --------- | ------------ | ---------- | ----------------------------------------------- |
 | `00`      | Magic Header | `FF 55`    |                                                 |
 | `02`      | Message Type | byte       | [Message Type](#type-indicator)                 |
-|           | Data block   | byte[]     | [Data block definition](#data-block-definition) |
+| `03`      | Data block   | byte[]     | [Data block definition](#data-block-definition) |
 | Last byte | Checksum     | byte       | [Checksum Algorithm](#checksum-algorithm)       |
 
 ### Type Indicator
@@ -45,6 +45,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Kind    | Fixed size | Link                           |
 | ------- | ---------- | ------------------------------ |
 | Report  | 32 byte    | [AC Meter](#ac-meter-report)   |
+|         |            | [DC Meter](#dc-meter-report)   |
 |         |            | [USB Meter](#usb-meter-report) |
 | Command | 6 byte     | [Command](#command)            |
 | Reply   | 4 byte     | [Reply](#reply)                |
@@ -69,6 +70,10 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | `1B`   | Minute       | 1 byte     |                                |
 | `1C`   | Second       | 1 byte     |                                |
 | `1D`   | End byte     | `3C`       |                                |
+
+### DC Meter Report
+
+> There are currently no unpurchased product tests
 
 ### USB Meter Report
 
