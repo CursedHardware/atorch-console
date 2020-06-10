@@ -30,11 +30,11 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ### Data block definiton
 
-| Kind    | Block size | Links                                                      |
-| ------- | ---------- | ---------------------------------------------------------- |
-| Report  | 32 byte    | [AC Meter](#ac-meter-report)<br>[Meter](#usb-meter-report) |
-| Reply   | 4 byte     | [Reply](#reply)                                            |
-| Command | 6 byte     | [Command](#command)                                        |
+| Kind    | Block size | Links                                                          |
+| ------- | ---------- | -------------------------------------------------------------- |
+| Report  | 32 byte    | [AC Meter](#ac-meter-report)<br>[USB Meter](#usb-meter-report) |
+| Reply   | 4 byte     | [Reply](#reply)                                                |
+| Command | 6 byte     | [Command](#command)                                            |
 
 ### AC Meter Report
 
