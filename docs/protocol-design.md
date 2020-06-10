@@ -54,51 +54,51 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > Sample Packet:
 > [packet-meter-ac.spec.ts](../src/service/atorch-packet/packet-meter-ac.spec.ts)
 
-| Index | Field        | Block size | Note                           |
-| ----- | ------------ | ---------- | ------------------------------ |
-| `03`  | Device Type  | `03`       | [Device Type](#type-indicator) |
-| `04`  | Voltage      | 3 byte     | 24 bit BE                      |
-| `07`  | Amp          | 3 byte     | 24 bit BE                      |
-| `0A`  | Watt         | 3 byte     | 24 bit BE                      |
-| `0D`  | kW·h         | 4 byte     | 32 bit BE                      |
-| `11`  | Price        | 3 byte     | 24 bit BE                      |
-| `14`  | Frequency    | 2 byte     | 16 bit BE                      |
-| `16`  | Power factor | 2 byte     | 16 bit BE                      |
-| `18`  | Tempoerature | 3 byte     | 24 bit BE                      |
-| `1A`  | Hour         | 1 byte     |                                |
-| `1B`  | Minute       | 1 byte     |                                |
-| `1C`  | Second       | 1 byte     |                                |
-| `1D`  | End byte     | `3C`       |                                |
+| Offset | Field        | Block size | Note                           |
+| ------ | ------------ | ---------- | ------------------------------ |
+| `03`   | Device Type  | `03`       | [Device Type](#type-indicator) |
+| `04`   | Voltage      | 3 byte     | 24 bit BE                      |
+| `07`   | Amp          | 3 byte     | 24 bit BE                      |
+| `0A`   | Watt         | 3 byte     | 24 bit BE                      |
+| `0D`   | kW·h         | 4 byte     | 32 bit BE                      |
+| `11`   | Price        | 3 byte     | 24 bit BE                      |
+| `14`   | Frequency    | 2 byte     | 16 bit BE                      |
+| `16`   | Power factor | 2 byte     | 16 bit BE                      |
+| `18`   | Tempoerature | 3 byte     | 24 bit BE                      |
+| `1A`   | Hour         | 1 byte     |                                |
+| `1B`   | Minute       | 1 byte     |                                |
+| `1C`   | Second       | 1 byte     |                                |
+| `1D`   | End byte     | `3C`       |                                |
 
 ### USB Meter Report
 
 > Sample Packet:
 > [packet-meter-usb.spec.ts](../src/service/atorch-packet/packet-meter-usb.spec.ts)
 
-| Index | Field        | Block size | Note                           |
-| ----- | ------------ | ---------- | ------------------------------ |
-| `03`  | Device Type  | `03`       | [Device Type](#type-indicator) |
-| `04`  | Voltage      | 3 byte     | 24 bit BE                      |
-| `07`  | Amp          | 3 byte     | 24 bit BE                      |
-| `0A`  | mA·h         | 3 byte     | 24 bit BE                      |
-| `0D`  | W·h          | 4 byte     | 32 bit BE                      |
-| `11`  | USB D-       | 2 byte     | 16 bit BE                      |
-| `13`  | USB D+       | 2 byte     | 16 bit BE                      |
-| `15`  | Tempoerature | 3 byte     | 24 bit BE                      |
-| `18`  | Hour         | 1 byte     |                                |
-| `19`  | Minute       | 1 byte     |                                |
-| `20`  | Second       | 1 byte     |                                |
-| `2A`  | End byte     | `3C`       |                                |
+| Offset | Field        | Block size | Note                           |
+| ------ | ------------ | ---------- | ------------------------------ |
+| `03`   | Device Type  | `03`       | [Device Type](#type-indicator) |
+| `04`   | Voltage      | 3 byte     | 24 bit BE                      |
+| `07`   | Amp          | 3 byte     | 24 bit BE                      |
+| `0A`   | mA·h         | 3 byte     | 24 bit BE                      |
+| `0D`   | W·h          | 4 byte     | 32 bit BE                      |
+| `11`   | USB D-       | 2 byte     | 16 bit BE                      |
+| `13`   | USB D+       | 2 byte     | 16 bit BE                      |
+| `15`   | Tempoerature | 3 byte     | 24 bit BE                      |
+| `18`   | Hour         | 1 byte     |                                |
+| `19`   | Minute       | 1 byte     |                                |
+| `20`   | Second       | 1 byte     |                                |
+| `2A`   | End byte     | `3C`       |                                |
 
 ### Command
 
 > Sample Packet:
 > [packet-command.spec.ts](../src/service/atorch-packet/packet-command.spec.ts)
 
-| Field       | Block size | Note                           |
-| ----------- | ---------- | ------------------------------ |
-| Device Type | 1 byte     | [Device Type](#type-indicator) |
-| Command     | 1 byte     |                                |
+| Offset | Field       | Block size | Note                           |
+| ------ | ----------- | ---------- | ------------------------------ |
+| `03`   | Device Type | 1 byte     | [Device Type](#type-indicator) |
+| `04`   | Command     | 1 byte     |                                |
 
 | Device Type | Command | Action         |
 | ----------- | ------- | -------------- |
@@ -116,9 +116,9 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > Sample Packet:
 > [packet-reply.spec.ts](../src/service/atorch-packet/packet-reply.spec.ts)
 
-| Field | Block size | Note |
-| ----- | ---------- | ---- |
-| State | 2 byte     |      |
+| Offset | Field | Block size |
+| ------ | ----- | ---------- |
+| `03`   | State | 2 byte     |
 
 | Known State | Action      |
 | ----------- | ----------- |

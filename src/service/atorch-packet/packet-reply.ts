@@ -6,7 +6,7 @@ export class ReplyPacket {
 
   public constructor(block: Buffer) {
     assertPacket(block, MessageType.Reply);
-    this.data = Buffer.from(block.slice(3, -1));
+    this.data = Buffer.from(block.slice(0x03, -1));
     Object.freeze(this);
     Object.seal(this);
   }
