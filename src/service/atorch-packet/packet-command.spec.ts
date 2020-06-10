@@ -30,7 +30,14 @@ describe("Command", () => {
   });
 
   const expects: Record<string, string> = {
-    FF551103010000000051: "0100000000",
+    FF551103010000000051: "0100000000", // USB Meter: Reset W·h
+    FF551103020000000052: "0200000000", // USB Meter: Reset A·h
+    FF551103030000000053: "0300000000", // USB Meter: Reset Duration
+    FF55110305000000005D: "0500000000", // Reset All
+    FF551103310000000001: "3100000000", // Setup
+    FF551103320000000002: "3200000000", // Enter
+    FF551103330000000003: "3300000000", // [+] Command
+    FF55110334000000000C: "3400000000", // [-] Command
   };
   for (const [packet, expected] of Object.entries(expects)) {
     it(packet, () => {

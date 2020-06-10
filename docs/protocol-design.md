@@ -21,176 +21,102 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ## Packet layout
 
-| Field        | Definition | Note                                       |
-| ------------ | ---------- | ------------------------------------------ |
-| Magic Header | `FF 55`    |                                            |
-| Message Type | BYTE       | `01`: Report, `02`: Reply, `11`: Command   |
-| Data block   |            |                                            |
-| Checksum     | BYTE       | [#checksum-algorithm](#checksum-algorithm) |
+| Field        | Definition | Note                                            |
+| ------------ | ---------- | ----------------------------------------------- |
+| Magic Header | `FF 55`    |                                                 |
+| Message Type | BYTE       | `01`: Report, `02`: Reply, `11`: Command        |
+| Data block   | BYTE[]     | [Data block definition](#data-block-definition) |
+| Checksum     | BYTE       | [Checksum Algorithm](#checksum-algorithm)       |
 
-### Data size (Fixed length)
+### Data block definiton
 
-| Kind    | Block size | Note           |
-| ------- | ---------- | -------------- |
-| Report  | 32 byte    | End byte: `3C` |
-| Reply   | 4 byte     |                |
-| Command | 6 byte     |                |
+| Kind    | Block size | Links                                                      |
+| ------- | ---------- | ---------------------------------------------------------- |
+| Report  | 32 byte    | [AC Meter](#ac-meter-report)<br>[Meter](#usb-meter-report) |
+| Reply   | 4 byte     | [Reply](#reply)                                            |
+| Command | 6 byte     | [Command](#command)                                        |
 
-### **Non-Reply Packet** first byte definiton
+### AC Meter Report
 
-| Device Type | Byte |
-| ----------- | ---- |
-| AC Meter    | `01` |
-| DC Meter    | `02` |
-| USB Meter   | `03` |
+> Sample Packet:
+> [packet-meter-ac.spec.ts](src/service/atorch-packet/packet-meter-ac.spec.ts)
 
-## Host to Slave (USB Meter available)
+| Field        | Block size | Note      |
+| ------------ | ---------- | --------- |
+| Device Type  | `01`       |           |
+| Voltage      | 3 byte     | 24 bit BE |
+| Amp          | 3 byte     | 24 bit BE |
+| Watt         | 3 byte     | 24 bit BE |
+| kW·h         | 4 byte     | 32 bit BE |
+| Price        | 3 byte     | 24 bit BE |
+| Frequency    | 2 byte     | 16 bit BE |
+| Power factor | 2 byte     | 16 bit BE |
+| Tempoerature | 2 byte     | 16 bit BE |
+| Hour         | 1 byte     |           |
+| Minute       | 1 byte     |           |
+| Second       | 1 byte     |           |
+| End byte     | `3C`       |           |
 
-| Function       | Packet                          |
-| -------------- | ------------------------------- |
-| Reset W·h      | `FF 55 11 03 01 00 00 00 00 51` |
-| Reset A·h      | `FF 55 11 03 02 00 00 00 00 52` |
-| Reset Duration | `FF 55 11 03 03 00 00 00 00 53` |
-| Reset All      | `FF 55 11 03 05 00 00 00 00 5D` |
-| Setup          | `FF 55 11 03 31 00 00 00 00 01` |
-| Enter          | `FF 55 11 03 32 00 00 00 00 02` |
-| `[+]` Command  | `FF 55 11 03 33 00 00 00 00 03` |
-| `[-]` Command  | `FF 55 11 03 34 00 00 00 00 0C` |
+### USB Meter Report
 
-## Slave to Host (General)
+> Sample Packet:
+> [packet-meter-usb.spec.ts](src/service/atorch-packet/packet-meter-usb.spec.ts)
 
-| Function    | Packet                    |
-| ----------- | ------------------------- |
-| OK          | `FF 55 02 01 01 00 00 40` |
-| ??          | `FF 55 02 01 02 00 00 41` |
-| Unsupported | `FF 55 02 01 03 00 00 42` |
+| Field        | Block size | Note      |
+| ------------ | ---------- | --------- |
+| Device Type  | `03`       |           |
+| Voltage      | 3 byte     | 24 bit BE |
+| Amp          | 3 byte     | 24 bit BE |
+| mA·h         | 3 byte     | 24 bit BE |
+| W·h          | 4 byte     | 32 bit BE |
+| USB D-       | 2 byte     | 16 bit BE |
+| USB D+       | 2 byte     | 16 bit BE |
+| Tempoerature | 3 byte     | 24 bit BE |
+| Hour         | 1 byte     |           |
+| Minute       | 1 byte     |           |
+| Second       | 1 byte     |           |
+| End byte     | `3C`       |           |
 
-## Sample Packets (from UD18)
+### Reply
 
-```plain
-Offset  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+> Sample Packet:
+> [packet-reply.spec.ts](src/service/atorch-packet/packet-reply.spec.ts)
 
-0000000 FF 55 01 03 00 01 F3 00 00 00 00 06 38 00 00 03
-0000010 11 00 07 00 0A 00 00 00 12 2E 33 3C 00 00 00 00
-0000020 00 00 00 4E
+| Field | Block size | Note |
+| ----- | ---------- | ---- |
+| State | 2 byte     |      |
 
-0000000 FF 55 01 03 00 01 FC 00 00 00 00 45 7F 00 00 52
-0000010 94 00 07 00 07 00 00 00 10 24 2A 3C 00 00 00 00
-0000020 00 00 00 17
-```
+| Known State | Action      |
+| ----------- | ----------- |
+| `02 01`     | OK          |
+| `02 03`     | Unsupported |
 
-## AT24 Report Packet layout (AC Meter)
+### Command
 
-```plain
-0000 FF magic header
-0001 55 magic header
+> Sample Packet:
+> [packet-command.spec.ts](src/service/atorch-packet/packet-command.spec.ts)
 
-0002 01 command type: 01: data, 02: ack-command, 11: command
-0003 01  device type: 01: AC, 03: USB
+| Field       | Block size | Note                          |
+| ----------- | ---------- | ----------------------------- |
+| Device Type | 1 byte     | `01`: AC, `02`: DC, `03`: USB |
+| Command     | 1 byte     |                               |
 
-0004 00 V
-0005 08 V
-0006 FF V, as INT24, /10
-
-0007 00 A
-0008 00 A
-0009 00 A, as INT24, /10
-
-000A 00 W
-000B 00 W
-000C 00 W, as INT24, /10
-
-000D 00 kWh
-000E 00 kWh
-000F 00 kWh
-0010 00 kWh, as INT16, /100
-
-0011 00 price
-0012 00 price
-0013 64 price, as INT16, /100
-
-0014 01 frequency
-0015 F4 frequency, as INT16, /10
-
-0016 00 power factor
-0017 85 power factor, as INT16, /1000
-
-0018 00 internal temperature
-0019 2F internal temperature, as INT16
-
-001A 12 t-h, as BYTE, hour
-001B 2E t-m, as BYTE, min
-001C 33 t-s, as BYTE, sec.
-
-001D 3C magic end
-
-001E 00
-001F 00
-
-0020 00
-0021 00
-
-0022 00
-
-0023 A1 checksum
-```
-
-## UD18 Report Packet layout (USB Meter)
-
-```plain
-0000 FF magic header
-0001 55 magic header
-
-0002 01 command type: 01: data, 02: ack-command, 11: command
-0003 03  device type: 01: AC, 03: USB
-
-0004 00 V
-0005 00 V
-0006 00 V, as INT24, /100
-
-0007 00 I
-0008 00 I
-0009 00 I, as INT24, /100
-
-000A 00 mAh
-000B 00 mAh
-000C 00 mAh, as INT24,
-
-000D 00 Wh
-000E 00 Wh
-000F 00 Wh
-0010 00 Wh, as INT32, /100
-
-0011 00 D-
-0012 07 D- as INT16, /100
-
-0013 00 D+
-0014 0A D+ as INT16, /100
-
-0015 00 maybe is temperature
-0016 00 maybe is temperature
-
-0017 00 ??
-
-0018 12 t-h, as BYTE, hour
-0019 2E t-m, as BYTE, min
-001A 33 t-s, as BYTE, sec.
-
-001B 3C magic end
-
-001C 00
-001D 00
-
-001E 00
-001F 00
-
-0020 00
-0021 00
-
-0022 00
-
-0023 4E checksum
-```
+| Device Type | Command | Action         |
+| ----------- | ------- | -------------- |
+| AC Meter    | `05`    | Reset All      |
+| AC Meter    | `31`    | Setup          |
+| AC Meter    | `32`    | Enter          |
+| AC Meter    | `33`    | `[+]` Command  |
+| AC Meter    | `34`    | `[-]` Command  |
+| -           | -       | -              |
+| USB Meter   | `01`    | Reset W·h      |
+| USB Meter   | `02`    | Reset A·h      |
+| USB Meter   | `03`    | Reset Duration |
+| USB Meter   | `05`    | Reset All      |
+| USB Meter   | `31`    | Setup          |
+| USB Meter   | `32`    | Enter          |
+| USB Meter   | `33`    | `[+]` Command  |
+| USB Meter   | `34`    | `[-]` Command  |
 
 ## Checksum Algorithm
 
