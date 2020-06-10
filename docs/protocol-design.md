@@ -121,6 +121,8 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ## Checksum Algorithm
 
+> Without **Magic Header**
+
 ```javascript
 const packet = Buffer.from("FF551103310000000001", "hex");
 
