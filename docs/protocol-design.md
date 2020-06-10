@@ -19,6 +19,31 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Service        | `0000FFE0-0000-1000-8000-00805F9B34FB` |
 | Characteristic | `0000FFE1-0000-1000-8000-00805F9B34FB` |
 
+## Packet layout
+
+| Field        | Definition | Note                                       |
+| ------------ | ---------- | ------------------------------------------ |
+| Magic Header | `FF 55`    |                                            |
+| Message Type | BYTE       | `01`: Report, `02`: Reply, `11`: Command   |
+| Data block   |            |                                            |
+| Checksum     | BYTE       | [#checksum-algorithm](#checksum-algorithm) |
+
+### Data size (Fixed length)
+
+| Kind    | Block size | Note           |
+| ------- | ---------- | -------------- |
+| Report  | 32 byte    | End byte: `3C` |
+| Reply   | 4 byte     |                |
+| Command | 6 byte     |                |
+
+### **Non-Reply Packet** first byte definiton
+
+| Device Type | Byte |
+| ----------- | ---- |
+| AC Meter    | `01` |
+| DC Meter    | `02` |
+| USB Meter   | `03` |
+
 ## Host to Slave (USB Meter available)
 
 | Function       | Packet                          |
