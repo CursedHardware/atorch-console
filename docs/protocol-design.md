@@ -24,7 +24,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Offset    | Field        | Definition | Note                                            |
 | --------- | ------------ | ---------- | ----------------------------------------------- |
 | `00`      | Magic Header | `FF 55`    |                                                 |
-| `03`      | Message Type | byte       | [Message Type](#type-indicator)                 |
+| `02`      | Message Type | byte       | [Message Type](#type-indicator)                 |
 |           | Data block   | byte[]     | [Data block definition](#data-block-definition) |
 | Last byte | Checksum     | byte       | [Checksum Algorithm](#checksum-algorithm)       |
 
