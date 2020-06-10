@@ -64,8 +64,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | `11`  | Price        | 3 byte     | 24 bit BE                      |
 | `14`  | Frequency    | 2 byte     | 16 bit BE                      |
 | `16`  | Power factor | 2 byte     | 16 bit BE                      |
-| `18`  | Tempoerature | 2 byte     | 16 bit BE                      |
-| `19`  |              | 1 byte     | Unknown                        |
+| `18`  | Tempoerature | 3 byte     | 24 bit BE                      |
 | `1A`  | Hour         | 1 byte     |                                |
 | `1B`  | Minute       | 1 byte     |                                |
 | `1C`  | Second       | 1 byte     |                                |
