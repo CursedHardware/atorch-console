@@ -21,7 +21,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ## Packet layout
 
-| Index     | Field        | Definition | Note                                            |
+| Offset    | Field        | Definition | Note                                            |
 | --------- | ------------ | ---------- | ----------------------------------------------- |
 | `00`      | Magic Header | `FF 55`    |                                                 |
 | `03`      | Message Type | byte       | [Message Type](#type-indicator)                 |
