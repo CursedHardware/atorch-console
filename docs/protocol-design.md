@@ -30,11 +30,12 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ### Data block definiton
 
-| Kind    | Block size | Links                                                          |
-| ------- | ---------- | -------------------------------------------------------------- |
-| Report  | 32 byte    | [AC Meter](#ac-meter-report)<br>[USB Meter](#usb-meter-report) |
-| Reply   | 4 byte     | [Reply](#reply)                                                |
-| Command | 6 byte     | [Command](#command)                                            |
+| Kind    | Block size | Link                           |
+| ------- | ---------- | ------------------------------ |
+| Report  | 32 byte    | [AC Meter](#ac-meter-report)   |
+|         |            | [USB Meter](#usb-meter-report) |
+| Command | 6 byte     | [Command](#command)            |
+| Reply   | 4 byte     | [Reply](#reply)                |
 
 ### AC Meter Report
 
@@ -77,20 +78,6 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Second       | 1 byte     |           |
 | End byte     | `3C`       |           |
 
-### Reply
-
-> Sample Packet:
-> [packet-reply.spec.ts](src/service/atorch-packet/packet-reply.spec.ts)
-
-| Field | Block size | Note |
-| ----- | ---------- | ---- |
-| State | 2 byte     |      |
-
-| Known State | Action      |
-| ----------- | ----------- |
-| `02 01`     | OK          |
-| `02 03`     | Unsupported |
-
 ### Command
 
 > Sample Packet:
@@ -117,6 +104,20 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | USB Meter   | `32`    | Enter          |
 | USB Meter   | `33`    | `[+]` Command  |
 | USB Meter   | `34`    | `[-]` Command  |
+
+### Reply
+
+> Sample Packet:
+> [packet-reply.spec.ts](src/service/atorch-packet/packet-reply.spec.ts)
+
+| Field | Block size | Note |
+| ----- | ---------- | ---- |
+| State | 2 byte     |      |
+
+| Known State | Action      |
+| ----------- | ----------- |
+| `02 01`     | OK          |
+| `02 03`     | Unsupported |
 
 ## Checksum Algorithm
 
