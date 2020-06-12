@@ -21,90 +21,88 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ## Packet layout
 
-|    Offset | Field        | Block size | Note                                            |
-| --------: | ------------ | ---------- | ----------------------------------------------- |
-|      `00` | Magic Header | 2 byte     | `FF 55`                                         |
-|      `02` | Message Type | 1 byte     | [Message Type](#type-indicator)                 |
-|      `03` | Data block   |            | [Data block definition](#data-block-definition) |
-| Last byte | Checksum     | 1 byte     | [Checksum Algorithm](#checksum-algorithm)       |
+|    Offset | Field        | Block size | Note                                      |
+| --------: | ------------ | ---------- | ----------------------------------------- |
+|      `00` | Magic Header | 2 byte     | `FF 55`                                   |
+|      `02` | Message Type | 1 byte     | [Message Type](#type-indicator)           |
+|      `03` | Payload      |            |                                           |
+| Last byte | Checksum     | 1 byte     | [Checksum Algorithm](#checksum-algorithm) |
 
 ### Type indicator
 
-|         Type | Value | Note      |
-| -----------: | ----- | --------- |
-| Message Type | `01`  | Report    |
-| Message Type | `02`  | Reply     |
-| Message Type | `11`  | Command   |
-|            - | -     | -         |
-|  Device Type | `01`  | AC Meter  |
-|  Device Type | `02`  | DC Meter  |
-|  Device Type | `03`  | USB Meter |
-
-### Data block definition
-
-| Kind    | Fixed size | Link                           |
-| :------ | ---------- | ------------------------------ |
-| Report  | 32 byte    | [AC Meter](#ac-meter-report)   |
-|         |            | [DC Meter](#dc-meter-report)   |
-|         |            | [USB Meter](#usb-meter-report) |
-| Command | 6 byte     | [Command](#command)            |
-| Reply   | 4 byte     | [Reply](#reply)                |
+|         Type | Value | Payload size | Note                                  |
+| -----------: | ----- | ------------ | ------------------------------------- |
+| Message Type | `01`  |              | Report                                |
+| Message Type | `02`  | 4 byte       | [Reply](#reply)                       |
+| Message Type | `11`  | 6 byte       | [Command](#command)                   |
+|            - | -     | -            | -                                     |
+|  Device Type | `01`  | 32 byte      | [AC Meter Report](#ac-meter-report)   |
+|  Device Type | `02`  | 32 byte      | [DC Meter Report](#dc-meter-report)   |
+|  Device Type | `03`  | 32 byte      | [USB Meter Report](#usb-meter-report) |
 
 ### AC Meter Report
 
 > Sample Packet:
 > [packet-meter-ac.spec.ts](../src/service/atorch-packet/packet-meter-ac.spec.ts)
 
-| Offset | Field        | Block size | Note                                |
-| -----: | ------------ | ---------- | ----------------------------------- |
-|   `03` | Device Type  | 1 byte     | `01` [Device Type](#type-indicator) |
-|   `04` | Voltage      | 3 byte     | 24 bit BE                           |
-|   `07` | Amp          | 3 byte     | 24 bit BE                           |
-|   `0A` | Watt         | 3 byte     | 24 bit BE                           |
-|   `0D` | kW·h         | 4 byte     | 32 bit BE                           |
-|   `11` | Price        | 3 byte     | 24 bit BE                           |
-|   `14` | Frequency    | 2 byte     | 16 bit BE                           |
-|   `16` | Power factor | 2 byte     | 16 bit BE                           |
-|   `18` | Tempoerature | 3 byte     | 24 bit BE                           |
-|   `1A` | Hour         | 1 byte     |                                     |
-|   `1B` | Minute       | 1 byte     |                                     |
-|   `1C` | Second       | 1 byte     |                                     |
-|   `1D` | End byte     | 1 byte     | `3C`                                |
+| Offset | Field        | Block size | Note                                 |
+| -----: | ------------ | ---------- | ------------------------------------ |
+|   `02` | Message Type | 1 byte     | `01` [Message Type](#type-indicator) |
+|   `03` | Device Type  | 1 byte     | `01` [Device Type](#type-indicator)  |
+|   `04` | Voltage      | 3 byte     | 24 bit BE                            |
+|   `07` | Amp          | 3 byte     | 24 bit BE                            |
+|   `0A` | Watt         | 3 byte     | 24 bit BE                            |
+|   `0D` | kW·h         | 4 byte     | 32 bit BE                            |
+|   `11` | Price        | 3 byte     | 24 bit BE                            |
+|   `14` | Frequency    | 2 byte     | 16 bit BE                            |
+|   `16` | Power factor | 2 byte     | 16 bit BE                            |
+|   `18` | Tempoerature | 3 byte     | 24 bit BE                            |
+|   `1A` | Hour         | 1 byte     |                                      |
+|   `1B` | Minute       | 1 byte     |                                      |
+|   `1C` | Second       | 1 byte     |                                      |
+|   `1D` | End byte     | 1 byte     | `3C`                                 |
 
 ### DC Meter Report
 
 > There are currently no unpurchased product tests
+
+| Offset | Field        | Block size | Note                                 |
+| -----: | ------------ | ---------- | ------------------------------------ |
+|   `02` | Message Type | 1 byte     | `01` [Message Type](#type-indicator) |
+|   `03` | Device Type  | 1 byte     | `02` [Device Type](#type-indicator)  |
 
 ### USB Meter Report
 
 > Sample Packet:
 > [packet-meter-usb.spec.ts](../src/service/atorch-packet/packet-meter-usb.spec.ts)
 
-| Offset | Field        | Block size | Note                                |
-| -----: | ------------ | ---------- | ----------------------------------- |
-|   `03` | Device Type  | 1 byte     | `03` [Device Type](#type-indicator) |
-|   `04` | Voltage      | 3 byte     | 24 bit BE                           |
-|   `07` | Amp          | 3 byte     | 24 bit BE                           |
-|   `0A` | mA·h         | 3 byte     | 24 bit BE                           |
-|   `0D` | W·h          | 4 byte     | 32 bit BE                           |
-|   `11` | USB D-       | 2 byte     | 16 bit BE                           |
-|   `13` | USB D+       | 2 byte     | 16 bit BE                           |
-|   `15` | Tempoerature | 3 byte     | 24 bit BE                           |
-|   `17` |              | 1 byte     | unknown value                       |
-|   `18` | Hour         | 1 byte     |                                     |
-|   `19` | Minute       | 1 byte     |                                     |
-|   `20` | Second       | 1 byte     |                                     |
-|   `2A` | End byte     | 1 byte     | `3C`                                |
+| Offset | Field        | Block size | Note                                 |
+| -----: | ------------ | ---------- | ------------------------------------ |
+|   `02` | Message Type | 1 byte     | `01` [Message Type](#type-indicator) |
+|   `03` | Device Type  | 1 byte     | `03` [Device Type](#type-indicator)  |
+|   `04` | Voltage      | 3 byte     | 24 bit BE                            |
+|   `07` | Amp          | 3 byte     | 24 bit BE                            |
+|   `0A` | mA·h         | 3 byte     | 24 bit BE                            |
+|   `0D` | W·h          | 4 byte     | 32 bit BE                            |
+|   `11` | USB D-       | 2 byte     | 16 bit BE                            |
+|   `13` | USB D+       | 2 byte     | 16 bit BE                            |
+|   `15` | Tempoerature | 3 byte     | 24 bit BE                            |
+|   `17` |              | 1 byte     | unknown value                        |
+|   `18` | Hour         | 1 byte     |                                      |
+|   `19` | Minute       | 1 byte     |                                      |
+|   `20` | Second       | 1 byte     |                                      |
+|   `2A` | End byte     | 1 byte     | `3C`                                 |
 
 ### Command
 
 > Sample Packet:
 > [packet-command.spec.ts](../src/service/atorch-packet/packet-command.spec.ts)
 
-| Offset | Field       | Block size | Note                           |
-| -----: | ----------- | ---------- | ------------------------------ |
-|   `03` | Device Type | 1 byte     | [Device Type](#type-indicator) |
-|   `04` | Command     | 1 byte     |                                |
+| Offset | Field        | Block size | Note                                 |
+| -----: | ------------ | ---------- | ------------------------------------ |
+|   `02` | Message Type | 1 byte     | `11` [Message Type](#type-indicator) |
+|   `03` | Device Type  | 1 byte     | [Device Type](#type-indicator)       |
+|   `04` | Command      | 1 byte     |                                      |
 
 | Device Type | Command | Action         |
 | ----------: | ------: | -------------- |
