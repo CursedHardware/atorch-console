@@ -48,6 +48,17 @@ describe("USB Meter", () => {
       temperature: 0,
       duration: "071:48:13",
     },
+    FF5501030001FB000001006C3F00006C4400070006001A00471C1A3C0000000000000078: {
+      mVoltage: 5070,
+      mAmpere: 10,
+      mWatt: 51,
+      mAh: 277110,
+      mWh: 277160,
+      dataN: 70,
+      dataP: 60,
+      temperature: 26,
+      duration: "071:28:26",
+    },
   };
   for (const [packet, expected] of Object.entries(expects)) {
     it(packet, () => {

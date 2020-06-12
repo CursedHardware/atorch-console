@@ -30,7 +30,7 @@ export class USBMeterPacket {
     this.mWh = block.readUInt32BE(0x0d) * 10;
     this.dataN = block.readUInt16BE(0x11) * 10;
     this.dataP = block.readUInt16BE(0x13) * 10;
-    this.temperature = readUInt24BE(block, 0x15);
+    this.temperature = block.readInt16BE(0x15);
     this.duration = readDuration(block, 0x18);
     Object.freeze(this);
     Object.seal(this);

@@ -28,7 +28,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | `03`      | Data block   |            | [Data block definition](#data-block-definition) |
 | Last byte | Checksum     | 1 byte     | [Checksum Algorithm](#checksum-algorithm)       |
 
-### Type Indicator
+### Type indicator
 
 | Type         | Value | Note      |
 | ------------ | ----- | --------- |
@@ -90,6 +90,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | `11`   | USB D-       | 2 byte     | 16 bit BE                           |
 | `13`   | USB D+       | 2 byte     | 16 bit BE                           |
 | `15`   | Tempoerature | 3 byte     | 24 bit BE                           |
+| `17`   |              | 1 byte     | unknown value                       |
 | `18`   | Hour         | 1 byte     |                                     |
 | `19`   | Minute       | 1 byte     |                                     |
 | `20`   | Second       | 1 byte     |                                     |
