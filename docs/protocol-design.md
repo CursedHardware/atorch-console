@@ -30,20 +30,20 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ### Type indicator
 
-| Type         | Value | Note      |
-| ------------ | ----- | --------- |
+|         Type | Value | Note      |
+| -----------: | ----- | --------- |
 | Message Type | `01`  | Report    |
 | Message Type | `02`  | Reply     |
 | Message Type | `11`  | Command   |
-| -            | -     | -         |
-| Device Type  | `01`  | AC Meter  |
-| Device Type  | `02`  | DC Meter  |
-| Device Type  | `03`  | USB Meter |
+|            - | -     | -         |
+|  Device Type | `01`  | AC Meter  |
+|  Device Type | `02`  | DC Meter  |
+|  Device Type | `03`  | USB Meter |
 
 ### Data block definition
 
 | Kind    | Fixed size | Link                           |
-| ------- | ---------- | ------------------------------ |
+| :------ | ---------- | ------------------------------ |
 | Report  | 32 byte    | [AC Meter](#ac-meter-report)   |
 |         |            | [DC Meter](#dc-meter-report)   |
 |         |            | [USB Meter](#usb-meter-report) |
