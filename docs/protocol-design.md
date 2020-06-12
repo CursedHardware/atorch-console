@@ -40,7 +40,7 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 | Device Type  | `02`  | DC Meter  |
 | Device Type  | `03`  | USB Meter |
 
-### Data block definiton
+### Data block definition
 
 | Kind    | Fixed size | Link                           |
 | ------- | ---------- | ------------------------------ |
