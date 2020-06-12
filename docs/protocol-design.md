@@ -21,11 +21,11 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 
 ## Packet layout
 
-| Offset    | Field        | Block size | Note                                            |
-| --------- | ------------ | ---------- | ----------------------------------------------- |
-| `00`      | Magic Header | 2 byte     | `FF 55`                                         |
-| `02`      | Message Type | 1 byte     | [Message Type](#type-indicator)                 |
-| `03`      | Data block   |            | [Data block definition](#data-block-definition) |
+|    Offset | Field        | Block size | Note                                            |
+| --------: | ------------ | ---------- | ----------------------------------------------- |
+|      `00` | Magic Header | 2 byte     | `FF 55`                                         |
+|      `02` | Message Type | 1 byte     | [Message Type](#type-indicator)                 |
+|      `03` | Data block   |            | [Data block definition](#data-block-definition) |
 | Last byte | Checksum     | 1 byte     | [Checksum Algorithm](#checksum-algorithm)       |
 
 ### Type indicator
@@ -56,20 +56,20 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > [packet-meter-ac.spec.ts](../src/service/atorch-packet/packet-meter-ac.spec.ts)
 
 | Offset | Field        | Block size | Note                                |
-| ------ | ------------ | ---------- | ----------------------------------- |
-| `03`   | Device Type  | 1 byte     | `01` [Device Type](#type-indicator) |
-| `04`   | Voltage      | 3 byte     | 24 bit BE                           |
-| `07`   | Amp          | 3 byte     | 24 bit BE                           |
-| `0A`   | Watt         | 3 byte     | 24 bit BE                           |
-| `0D`   | kW·h         | 4 byte     | 32 bit BE                           |
-| `11`   | Price        | 3 byte     | 24 bit BE                           |
-| `14`   | Frequency    | 2 byte     | 16 bit BE                           |
-| `16`   | Power factor | 2 byte     | 16 bit BE                           |
-| `18`   | Tempoerature | 3 byte     | 24 bit BE                           |
-| `1A`   | Hour         | 1 byte     |                                     |
-| `1B`   | Minute       | 1 byte     |                                     |
-| `1C`   | Second       | 1 byte     |                                     |
-| `1D`   | End byte     | 1 byte     | `3C`                                |
+| -----: | ------------ | ---------- | ----------------------------------- |
+|   `03` | Device Type  | 1 byte     | `01` [Device Type](#type-indicator) |
+|   `04` | Voltage      | 3 byte     | 24 bit BE                           |
+|   `07` | Amp          | 3 byte     | 24 bit BE                           |
+|   `0A` | Watt         | 3 byte     | 24 bit BE                           |
+|   `0D` | kW·h         | 4 byte     | 32 bit BE                           |
+|   `11` | Price        | 3 byte     | 24 bit BE                           |
+|   `14` | Frequency    | 2 byte     | 16 bit BE                           |
+|   `16` | Power factor | 2 byte     | 16 bit BE                           |
+|   `18` | Tempoerature | 3 byte     | 24 bit BE                           |
+|   `1A` | Hour         | 1 byte     |                                     |
+|   `1B` | Minute       | 1 byte     |                                     |
+|   `1C` | Second       | 1 byte     |                                     |
+|   `1D` | End byte     | 1 byte     | `3C`                                |
 
 ### DC Meter Report
 
@@ -81,20 +81,20 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > [packet-meter-usb.spec.ts](../src/service/atorch-packet/packet-meter-usb.spec.ts)
 
 | Offset | Field        | Block size | Note                                |
-| ------ | ------------ | ---------- | ----------------------------------- |
-| `03`   | Device Type  | 1 byte     | `03` [Device Type](#type-indicator) |
-| `04`   | Voltage      | 3 byte     | 24 bit BE                           |
-| `07`   | Amp          | 3 byte     | 24 bit BE                           |
-| `0A`   | mA·h         | 3 byte     | 24 bit BE                           |
-| `0D`   | W·h          | 4 byte     | 32 bit BE                           |
-| `11`   | USB D-       | 2 byte     | 16 bit BE                           |
-| `13`   | USB D+       | 2 byte     | 16 bit BE                           |
-| `15`   | Tempoerature | 3 byte     | 24 bit BE                           |
-| `17`   |              | 1 byte     | unknown value                       |
-| `18`   | Hour         | 1 byte     |                                     |
-| `19`   | Minute       | 1 byte     |                                     |
-| `20`   | Second       | 1 byte     |                                     |
-| `2A`   | End byte     | 1 byte     | `3C`                                |
+| -----: | ------------ | ---------- | ----------------------------------- |
+|   `03` | Device Type  | 1 byte     | `03` [Device Type](#type-indicator) |
+|   `04` | Voltage      | 3 byte     | 24 bit BE                           |
+|   `07` | Amp          | 3 byte     | 24 bit BE                           |
+|   `0A` | mA·h         | 3 byte     | 24 bit BE                           |
+|   `0D` | W·h          | 4 byte     | 32 bit BE                           |
+|   `11` | USB D-       | 2 byte     | 16 bit BE                           |
+|   `13` | USB D+       | 2 byte     | 16 bit BE                           |
+|   `15` | Tempoerature | 3 byte     | 24 bit BE                           |
+|   `17` |              | 1 byte     | unknown value                       |
+|   `18` | Hour         | 1 byte     |                                     |
+|   `19` | Minute       | 1 byte     |                                     |
+|   `20` | Second       | 1 byte     |                                     |
+|   `2A` | End byte     | 1 byte     | `3C`                                |
 
 ### Command
 
@@ -102,20 +102,20 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > [packet-command.spec.ts](../src/service/atorch-packet/packet-command.spec.ts)
 
 | Offset | Field       | Block size | Note                           |
-| ------ | ----------- | ---------- | ------------------------------ |
-| `03`   | Device Type | 1 byte     | [Device Type](#type-indicator) |
-| `04`   | Command     | 1 byte     |                                |
+| -----: | ----------- | ---------- | ------------------------------ |
+|   `03` | Device Type | 1 byte     | [Device Type](#type-indicator) |
+|   `04` | Command     | 1 byte     |                                |
 
 | Device Type | Command | Action         |
-| ----------- | ------- | -------------- |
-| USB Meter   | `01`    | Reset W·h      |
-| USB Meter   | `02`    | Reset A·h      |
-| USB Meter   | `03`    | Reset Duration |
-|             | `05`    | Reset All      |
-|             | `31`    | Setup          |
-|             | `32`    | Enter          |
-|             | `33`    | `[+]` Command  |
-|             | `34`    | `[-]` Command  |
+| ----------: | ------: | -------------- |
+|   USB Meter |    `01` | Reset W·h      |
+|   USB Meter |    `02` | Reset A·h      |
+|   USB Meter |    `03` | Reset Duration |
+|             |    `05` | Reset All      |
+|             |    `31` | Setup          |
+|             |    `32` | Enter          |
+|             |    `33` | `[+]` Command  |
+|             |    `34` | `[-]` Command  |
 
 ### Reply
 
@@ -123,13 +123,13 @@ Device broadcast name: `UD18-BLE`, `AT24-BLE`, etc `*-BLE`
 > [packet-reply.spec.ts](../src/service/atorch-packet/packet-reply.spec.ts)
 
 | Offset | Field | Block size |
-| ------ | ----- | ---------- |
-| `03`   | State | 2 byte     |
+| -----: | ----- | ---------- |
+|   `03` | State | 2 byte     |
 
 | Known State | Action      |
-| ----------- | ----------- |
-| `02 01`     | OK          |
-| `02 03`     | Unsupported |
+| ----------: | ----------- |
+|     `02 01` | OK          |
+|     `02 03` | Unsupported |
 
 ## Checksum Algorithm
 

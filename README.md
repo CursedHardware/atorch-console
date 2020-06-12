@@ -8,13 +8,22 @@
 
 > Welcome to report more compatible hardware.
 
-| Type      | Modal         | State  |
-| --------- | ------------- | ------ |
-| AC Meter  | Atorch AT24   | TESTED |
-| AC Meter  | Atorch AT3010 |        |
-| USB Meter | Atorch UD18   | TESTED |
-| USB Meter | Atorch T18    |        |
-| USB Meter | Atorch DL24   |        |
+|      Type | Product Name  | State   |
+| --------: | ------------- | ------- |
+|  AC Meter | Atorch AT24   | TESTED  |
+|  AC Meter | Atorch AT3010 |         |
+|  DC Meter | Atorch DT24   | UNKNOWN |
+|  DC Meter | Atorch DT3010 | UNKNOWN |
+| USB Meter | Atorch UD18   | TESTED  |
+| USB Meter | Atorch UD18-L |         |
+| USB Meter | Atorch T18    |         |
+| USB Meter | Atorch DL24   |         |
+| USB Meter | Atorch J7-H   |         |
+| USB Meter | Atorch Q7-T   | UNKNOWN |
+| USB Meter | Atorch A3-B   | UNKNOWN |
+
+1. the status is empty, maybe compatible.
+2. the status is unknown and i need sample device.
 
 ## Recommended Hardware
 
@@ -25,7 +34,7 @@ In addition, you can buy the compatible hardware from the following link.
 | Atorch UD18  | <https://detail.tmall.com/item.htm?id=597691329775> |
 | Atorch AT24  | <https://detail.tmall.com/item.htm?id=616170540023> |
 
-### Official Store
+## Official Store
 
 - <https://juweism.tmall.com>
 - <https://juweicn.taobao.com>
