@@ -8,22 +8,25 @@
 
 > Welcome to report more compatible hardware.
 
-|      Type | Product Name                                | State  |
-| --------: | ------------------------------------------- | ------ |
-|  AC Meter | Atorch AT24                                 | TESTED |
-|  AC Meter | [Atorch AT3010](docs/UserManual/AT3010.pdf) |        |
-|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     |        |
-|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) |        |
-| USB Meter | [Atorch UD18](docs/UserManual/UD18.jpg)     | TESTED |
-| USB Meter | [Atorch UD18-L](docs/UserManual/UD18-L.jpg) |        |
-| USB Meter | [Atorch T18](docs/UserManual/T18.jpg)       |        |
-| USB Meter | [Atorch DL24](docs/UserManual/DL24.jpg)     |        |
-| USB Meter | [Atorch J7-C](docs/UserManual/J7-C.jpg)     |        |
-| USB Meter | [Atorch J7-H](docs/UserManual/J7-H.pdf)     |        |
-| USB Meter | [Atorch Q7-T](docs/UserManual/Q7-T.pdf)     | TODO   |
-| USB Meter | [Atorch A3-B](docs/UserManual/A3-B.pdf)     | TODO   |
+|      Type | Product Name                                | Official app | Compatibility |
+| --------: | ------------------------------------------- | ------------ | ------------- |
+|  AC Meter | Atorch AT24                                 | E_test       | TESTED        |
+|  AC Meter | [Atorch AT3010](docs/UserManual/AT3010.pdf) | E_test       |               |
+|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     | E_test       | UNSUPPPORTED  |
+|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) | E_test       | UNSUPPPORTED  |
+| USB Meter | [Atorch UD18](docs/UserManual/UD18.jpg)     | E_test       | TESTED        |
+| USB Meter | [Atorch UD18-L](docs/UserManual/UD18-L.jpg) | E_test       |               |
+| USB Meter | [Atorch T18](docs/UserManual/T18.jpg)       | E_test       |               |
+| USB Meter | [Atorch DL24](docs/UserManual/DL24.jpg)     | E_test       |               |
+| USB Meter | [Atorch J7-C](docs/UserManual/J7-C.jpg)     | E_test       |               |
+| USB Meter | [Atorch J7-H](docs/UserManual/J7-H.pdf)     | E_test       |               |
+| USB Meter | [Atorch Q7-T](docs/UserManual/Q7-T.pdf)     | UM24C        | UNSUPPPORTED  |
+| USB Meter | [Atorch A3-B](docs/UserManual/A3-B.pdf)     | UM24C        | UNSUPPPORTED  |
+| USB Meter | [Atorch KM001](docs/UserManual/KM001.pdf)   |              | UNSUPPPORTED  |
 
-1. the status is empty, maybe compatible.
+1. "E_test" app official link
+   <br><https://apps.apple.com/app/e-test/id1478623332>
+   <br><https://play.google.com/store/apps/details?id=com.tang.etest.e_test>
 
 ## Recommended Hardware
 
