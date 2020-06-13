@@ -8,22 +8,22 @@
 
 > Welcome to report more compatible hardware.
 
-|      Type | Product Name  | State   |
-| --------: | ------------- | ------- |
-|  AC Meter | Atorch AT24   | TESTED  |
-|  AC Meter | Atorch AT3010 |         |
-|  DC Meter | Atorch DT24   | UNKNOWN |
-|  DC Meter | Atorch DT3010 | UNKNOWN |
-| USB Meter | Atorch UD18   | TESTED  |
-| USB Meter | Atorch UD18-L |         |
-| USB Meter | Atorch T18    |         |
-| USB Meter | Atorch DL24   |         |
-| USB Meter | Atorch J7-H   |         |
-| USB Meter | Atorch Q7-T   | UNKNOWN |
-| USB Meter | Atorch A3-B   | UNKNOWN |
+|      Type | Product Name                                | State  |
+| --------: | ------------------------------------------- | ------ |
+|  AC Meter | Atorch AT24                                 | TESTED |
+|  AC Meter | [Atorch AT3010](docs/UserManual/AT3010.pdf) |        |
+|  DC Meter | [Atorch DT24](docs/UserManual/DT24.jpg)     |        |
+|  DC Meter | [Atorch DT3010](docs/UserManual/DT3010.pdf) |        |
+| USB Meter | [Atorch UD18](docs/UserManual/UD18.jpg)     | TESTED |
+| USB Meter | [Atorch UD18-L](docs/UserManual/UD18-L.jpg) |        |
+| USB Meter | [Atorch T18](docs/UserManual/T18.jpg)       |        |
+| USB Meter | [Atorch DL24](docs/UserManual/DL24.jpg)     |        |
+| USB Meter | [Atorch J7-C](docs/UserManual/J7-C.jpg)     |        |
+| USB Meter | [Atorch J7-H](docs/UserManual/J7-H.pdf)     |        |
+| USB Meter | [Atorch Q7-T](docs/UserManual/Q7-T.pdf)     | TODO   |
+| USB Meter | [Atorch A3-B](docs/UserManual/A3-B.pdf)     | TODO   |
 
 1. the status is empty, maybe compatible.
-2. the status is unknown and i need sample device.
 
 ## Recommended Hardware
 
@@ -43,8 +43,6 @@ In addition, you can buy the compatible hardware from the following link.
 ## Reference
 
 - [Atorch Protocol design](docs/protocol-design.md)
-- [UD18 Introduction](docs/UD18-Introduction.jpg)
-- [UD18 User Manual](docs/UD18-User-manual.jpg)
 - [UD18 SPP (captured packet)](docs/UD18-SPP.pcap)
 - [部分充电协议电压逻辑表](docs/PD-Relationship.jpg)
 - <https://github.com/msillano/UD18-protocol-and-node-red>
