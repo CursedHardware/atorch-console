@@ -24,7 +24,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "typescript-fsa": "^3.0.0",
-    "typescript-fsa-reducers": "^1.2.1",
+    "typescript-fsa-reducers": "^1.2.2",
     "typescript-fsa-redux-thunk": "^2.1.9"
   },
   "devDependencies": {
